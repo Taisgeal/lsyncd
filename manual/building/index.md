@@ -24,3 +24,56 @@ cmake .
 make
 sudo make install
 {% endhighlight %}
+
+
+###Install for Debian Jessie and Ubuntu Xenial from Source
+
+The default install on Debian  and Ubuntu  works fine for clients, but not if you are running lsync as a server.
+
+To ensure it works as a server on either of the above platforms, please proceed as follows:
+
+{% highlight shell %}
+Debian
+apt-get source lsyncd
+{% endhighlight %}
+
+{% highlight shell %}
+Ubuntu-
+apt source lsyncd
+{% endhighlight %}
+
+You will now find a new subdirectory called lsyncd-version (eg. lsyncd-2.1.5)
+cd into it and edit line 91 of default-rsyncssh.lua using your favourite editor.
+Add a comma  at the end of line 91.
+Save and close the file.
+
+Then run these commands :
+
+{% highlight shell %}
+./configure
+make
+make install
+{% endhighlight %}
+
+If the ./configure fails, then run this :
+
+{% highlight shell %}
+Debian-
+apt-get install liblua5.1-dev lua5.1 dpkg-dev automake rsync -y
+{% endhighlight %}
+
+{% highlight shell %}
+Ubuntu-
+apt install liblua5.1-dev lua5.1 dpkg-dev automake rsync -y
+{% endhighlight %}
+
+and run ./configure again.  If OK, please proceed with make and then make install.
+
+To ensure the binary is in the Debian and Ubuntu PATH , please run these commands:
+
+{% highlight shell %}
+cd /usr/bin
+ln -s /usr/local/bin/lsyncd lsyncd
+{% endhighlight %}
+
+It is now possible to invoke lsyncd as a server on Debian and Ubuntu. 
