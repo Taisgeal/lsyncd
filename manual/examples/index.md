@@ -37,3 +37,19 @@ Layer 2 Examples
 Layer 1 Examples
 ----------------
  * [Auto Image Magic](auto-image-magic): creates a "magic" directory in which all images placed into will be converted to other file formats
+ 
+ Multi-File Example
+ --------------------
+ settings  {
+	logfile = "/var/log/lsyncd/lsyncd.log",
+	statusFile = "/var/log/lsyncd/lsyncd.status",
+	insist = true,
+}
+
+local confdir = '/etc/lsyncd/lsyncd.d/'
+local entries = readdir( confdir )
+for name, isdir in pairs( entries ) do
+    if not isdir then
+        dofile( confdir .. name )
+    end
+end
